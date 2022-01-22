@@ -1,4 +1,5 @@
 ﻿using CashBook.Models;
+using CashBook.Services;
 using CashBook.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -16,6 +17,9 @@ namespace CashBook.ViewModels
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
+
+        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+
 
         public ItemsViewModel()
         {

@@ -1,4 +1,5 @@
 ﻿using CashBook.Models;
+using CashBook.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,8 @@ namespace CashBook.ViewModels
     {
         private string text;
         private string description;
+        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+
 
         public NewItemViewModel()
         {

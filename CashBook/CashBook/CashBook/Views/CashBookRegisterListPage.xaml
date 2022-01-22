@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CashBook.Views.CashBookRegisterListPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:CashBook.ViewModels"  
+             xmlns:model="clr-namespace:CashBook.Models"  
+             x:Name="BrowseItemsPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddCashBookRegisterCommand}" />
+    </ContentPage.ToolbarItems>
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+    <StackLayout>
+        <Grid Margin="10" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0"  Text="Date" 
+                            LineBreakMode="NoWrap" FontAttributes="Bold"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="15" />
+            <Label Grid.Row="0" Grid.Column="1"  Text="Description" 
+                            LineBreakMode="WordWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="15" FontAttributes="Bold" />
+            <Label Grid.Row="0" Grid.Column="2"  FontAttributes="Bold" Text="Debit" 
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="15" TextColor="Red" />
+            <Label Grid.Row="0" Grid.Column="3"   Text="Credit" 
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="15" FontAttributes="Bold" TextColor="Green" />
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:CashBookRegistersViewModel}}, Path=CashBookRegisterTapped}"		
+                                CommandParameter="{Binding .}">
+                </TapGestureRecognizer>
+            </Grid.GestureRecognizers>
+        </Grid>
+        <RefreshView x:DataType="local:CashBookRegistersViewModel" Command="{Binding LoadCashBookRegistersCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <CollectionView x:Name="ItemsListView" Margin="10"
+                ItemsSource="{Binding CashBookRegisterList}"
+                SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <!--<StackLayout Padding="10" x:DataType="model:CashBookRegister">
+                        <DatePicker Date="{Binding TransactionDate}"                           
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="16" />
+                        <Label Text="{Binding Description}" 
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" />
+                        <Label Text="{Binding DRAmount}"                            
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" />
+                        <Label Text="{Binding CRAmount}"                            
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:CashBookRegistersViewModel}}, Path=CashBookRegisterTapped}"		
+                                CommandParameter="{Binding .}">
+                            </TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>-->
+                        <Grid x:DataType="model:CashBookRegister" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="70"></ColumnDefinition>
+                                <ColumnDefinition Width="70"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="75"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0"  Text="{Binding TransactionDate}" 
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" />
+                            <Label Grid.Row="0" Grid.Column="1"  Text="{Binding Description}" 
+                            LineBreakMode="WordWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" />
+                            <Label Grid.Row="0" Grid.Column="2"  Text="{Binding DRAmount}" 
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" TextColor="Red" />
+                            <Label Grid.Row="0" Grid.Column="3"  Text="{Binding CRAmount}" 
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" TextColor="Green" />
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:CashBookRegistersViewModel}}, Path=CashBookRegisterTapped}"		
+                                CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+
+    </StackLayout>
+</ContentPage>
