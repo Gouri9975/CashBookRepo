@@ -16,10 +16,10 @@ namespace CashBook.Services
 
             cashBookRegisters = new List<CashBookRegister>()
             {
-                new CashBookRegister { Id = Guid.NewGuid().ToString(), Description="This is an CashBookRegister description." ,CRAmount=500},
-                new CashBookRegister { Id = Guid.NewGuid().ToString(), Description = "Second CashBookRegister" ,DRAmount=200 },
-                new CashBookRegister { Id = Guid.NewGuid().ToString(),  Description="This is an CashBookRegister description.",CRAmount=300 },
-                new CashBookRegister { Id = Guid.NewGuid().ToString(),  Description="This is an CashBookRegister description." ,DRAmount=150}
+                new CashBookRegister { Id = Guid.NewGuid().ToString(),TransactionDate=DateTime.Now, Description="This is an CashBookRegister description." ,CRAmount=500},
+                new CashBookRegister { Id = Guid.NewGuid().ToString(), TransactionDate=DateTime.Now,Description = "Second CashBookRegister" ,DRAmount=200 },
+                new CashBookRegister { Id = Guid.NewGuid().ToString(),  TransactionDate=DateTime.Now,Description="This is an CashBookRegister description.",CRAmount=300 },
+                new CashBookRegister { Id = Guid.NewGuid().ToString(), TransactionDate=DateTime.Now, Description="This is an CashBookRegister description." ,DRAmount=150}
             };
         }
 

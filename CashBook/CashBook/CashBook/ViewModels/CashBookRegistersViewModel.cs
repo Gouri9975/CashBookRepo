@@ -56,6 +56,19 @@ namespace CashBook.ViewModels
             }
         }
 
+        public string itemId;
+        public string ItemId
+        {
+            get
+            {
+                return itemId;
+            }
+            set
+            {
+                itemId = value;
+                //LoadItemId(value);
+            }
+        }
         public void OnAppearing()
         {
             IsBusy = true;
@@ -81,14 +94,26 @@ namespace CashBook.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(NewCashWithdrawRegisterPage));
         }
-
+       
         async void OnCashBookRegisterSelected(CashBookRegister CashBookRegister)
         {
             if (CashBookRegister == null)
                 return;
+            if(CashBookRegister.CRAmount>0)
+            {
+                  await Shell.Current.GoToAsync($"{nameof(NewCashRegisterPage)}?{nameof(NewCashBookRegisterViewModel.CashRegisterId)}={CashBookRegister.Id}");
+
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"{nameof(NewCashWithdrawRegisterPage)}?{nameof(NewCashBookRegisterViewModel.CashRegisterId)}={CashBookRegister.Id}");
+
+            }
+        
+
 
             // This will push the CashBookRegisterDetailPage onto the navigation stack
-          //  await Shell.Current.GoToAsync($"{nameof(CashBookRegisterDetailPage)}?{nameof(CashBookRegisterDetailViewModel.CashBookRegisterId)}={CashBookRegister.Id}");
+            //  await Shell.Current.GoToAsync($"{nameof(CashBookRegisterDetailPage)}?{nameof(CashBookRegisterDetailViewModel.CashBookRegisterId)}={CashBookRegister.Id}");
         }
     }
 }

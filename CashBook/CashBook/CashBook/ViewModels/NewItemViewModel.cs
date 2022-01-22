@@ -8,6 +8,7 @@ using Xamarin.Forms;
 
 namespace CashBook.ViewModels
 {
+    
     public class NewItemViewModel : BaseViewModel
     {
         private string text;
@@ -40,7 +41,7 @@ namespace CashBook.ViewModels
             get => description;
             set => SetProperty(ref description, value);
         }
-
+      
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
 

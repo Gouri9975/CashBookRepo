@@ -8,6 +8,7 @@ using Xamarin.Forms;
 
 namespace CashBook.ViewModels
 {
+    [QueryProperty(nameof(CashRegisterId), nameof(CashRegisterId))]
     public class NewCashBookRegisterViewModel : BaseViewModel
     {
         private string text;
@@ -48,9 +49,41 @@ namespace CashBook.ViewModels
             get => amount;
             set => SetProperty(ref amount, value);
         }
-       
+        public string cashRegisterId;
+        public string CashRegisterId
+        {
+            get
+            {
+                return cashRegisterId;
+            }
+            set
+            {
+                cashRegisterId = value;
+                if(!String.IsNullOrEmpty(cashRegisterId))
 
-       
+                LoadItemId(value);
+            }
+        }
+        public async void LoadItemId(string itemId)
+        {
+            try
+            {
+                 var item = await DataStore.GetItemAsync(itemId);
+                TransactionDate = item.TransactionDate;
+                if(item.CRAmount>0)
+                Amount = item.CRAmount;
+                else
+                Amount = item.DRAmount;
+                Description = item.Description;
+            }
+            catch (Exception)
+            {
+               // Debug.WriteLine("Failed to Load Item");
+            }
+        }
+
+
+
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
 
@@ -62,28 +95,59 @@ namespace CashBook.ViewModels
 
         private async void OnSave()
         {
-            if (Type.Equals("CR"))
+            if (string.IsNullOrEmpty(CashRegisterId))
             {
-                CashBookRegister NewCashBookRegister = new CashBookRegister()
+                if (Type.Equals("CR"))
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    TransactionDate = TransactionDate,
-                    CRAmount = Amount,
-                    Description = Description
-                };
-                await DataStore.AddItemAsync(NewCashBookRegister);
+                    CashBookRegister NewCashBookRegister = new CashBookRegister()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        TransactionDate = TransactionDate,
+                        CRAmount = Amount,
+                        Description = Description
+                    };
+                    await DataStore.AddItemAsync(NewCashBookRegister);
+                }
+                else
+                {
+                    CashBookRegister NewCashBookRegister = new CashBookRegister()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        TransactionDate = TransactionDate,
+                        DRAmount = Amount,
+                        Description = Description
+                    };
+                    await DataStore.AddItemAsync(NewCashBookRegister);
+                }
+
             }
             else
             {
-                CashBookRegister NewCashBookRegister = new CashBookRegister()
+                if (Type.Equals("CR"))
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    TransactionDate = TransactionDate,
-                    DRAmount = Amount,
-                    Description = Description
-                };
-                await DataStore.AddItemAsync(NewCashBookRegister);
+                    CashBookRegister NewCashBookRegister = new CashBookRegister()
+                    {
+                        Id = CashRegisterId,
+                        TransactionDate = TransactionDate,
+                        CRAmount = Amount,
+                        Description = Description
+                    };
+                    await DataStore.UpdateItemAsync(NewCashBookRegister);
+                }
+                else
+                {
+                    CashBookRegister NewCashBookRegister = new CashBookRegister()
+                    {
+                        Id = CashRegisterId,
+                        TransactionDate = TransactionDate,
+                        DRAmount = Amount,
+                        Description = Description
+                    };
+                    await DataStore.UpdateItemAsync(NewCashBookRegister);
+                }
+               
             }
+                
 
            
 
