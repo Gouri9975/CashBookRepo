@@ -8,7 +8,8 @@
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddCashBookRegisterCommand}" />
+        <ToolbarItem Text="Deposite" Command="{Binding DepositeCashBookRegisterCommand}" />
+        <ToolbarItem Text="Withdraw" Command="{Binding WithdrawCashBookRegisterCommand}" />
     </ContentPage.ToolbarItems>
     <!--
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.

@@ -15,7 +15,9 @@ namespace CashBook.ViewModels
 
         public ObservableCollection<CashBookRegister> CashBookRegisterList { get; }
         public Command LoadCashBookRegistersCommand { get; }
-        public Command AddCashBookRegisterCommand { get; }
+        public Command DepositeCashBookRegisterCommand { get; }
+        public Command WithdrawCashBookRegisterCommand { get; }
+
         public Command<CashBookRegister> CashBookRegisterTapped { get; }
         public IDataStore<CashBookRegister> DataStore => DependencyService.Get<IDataStore<CashBookRegister>>();
 
@@ -27,7 +29,8 @@ namespace CashBook.ViewModels
 
             CashBookRegisterTapped = new Command<CashBookRegister>(OnCashBookRegisterSelected);
 
-            AddCashBookRegisterCommand = new Command(OnAddCashBookRegister);
+            DepositeCashBookRegisterCommand = new Command(OnDepositeCashBookRegisterCommand);
+            WithdrawCashBookRegisterCommand = new Command(OnWithdrawCashBookRegisterCommand);
         }
 
         async Task ExecuteLoadCashBookRegistersCommand()
@@ -69,9 +72,14 @@ namespace CashBook.ViewModels
             }
         }
 
-        private async void OnAddCashBookRegister(object obj)
+        private async void OnDepositeCashBookRegisterCommand(object obj)
         {
-            //await Shell.Current.GoToAsync(nameof(NewCashBookRegisterPage));
+            await Shell.Current.GoToAsync(nameof(NewCashRegisterPage));
+
+        }
+        private async void OnWithdrawCashBookRegisterCommand(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(NewCashWithdrawRegisterPage));
         }
 
         async void OnCashBookRegisterSelected(CashBookRegister CashBookRegister)

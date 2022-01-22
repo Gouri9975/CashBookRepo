@@ -15,6 +15,7 @@ namespace CashBook
 
             DependencyService.Register<MockDataStore>();
             DependencyService.Register<CashBookRegisterStore>();
+           
             MainPage = new AppShell();
         }
 
