@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace CashBook.ViewModels
 {
@@ -14,6 +15,29 @@ namespace CashBook.ViewModels
         private CashBookRegister _selectedCashBookRegister;
 
         public ObservableCollection<CashBookRegister> CashBookRegisterList { get; }
+      
+        
+
+        decimal _TotalDR = 0;
+        public decimal TotalDR
+        {
+            get { return _TotalDR; }
+            set { SetProperty(ref _TotalDR, value); }
+        }
+
+        decimal _TotalCR = 0;
+        public decimal TotalCR
+        {
+            get { return _TotalCR; }
+            set { SetProperty(ref _TotalCR, value); }
+        }
+        decimal _Balance = 0;
+        public decimal Balance
+        {
+            get { return _Balance; }
+            set { SetProperty(ref _Balance, value); }
+        }
+
         public Command LoadCashBookRegistersCommand { get; }
         public Command DepositeCashBookRegisterCommand { get; }
         public Command WithdrawCashBookRegisterCommand { get; }
@@ -46,6 +70,9 @@ namespace CashBook.ViewModels
                 {
                     CashBookRegisterList.Add(CashBookRegister);
                 }
+                TotalDR = CashBookRegisters.Sum(P => P.DRAmount);
+                TotalCR = CashBookRegisters.Sum(P => P.CRAmount);
+                Balance = TotalCR - TotalDR;
             }
             catch (Exception ex)
             {
