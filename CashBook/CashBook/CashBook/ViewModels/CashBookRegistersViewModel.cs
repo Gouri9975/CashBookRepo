@@ -40,6 +40,7 @@ namespace CashBook.ViewModels
             try
             {
                 CashBookRegisterList.Clear();
+               
                 var CashBookRegisters = await DataStore.GetItemsAsync(true);
                 foreach (var CashBookRegister in CashBookRegisters)
                 {

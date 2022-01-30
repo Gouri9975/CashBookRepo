@@ -9,52 +9,44 @@ namespace CashBook.Services
     public class CashBookRegisterStore : IDataStore<CashBookRegister>
     {
         readonly List<CashBookRegister> cashBookRegisters;
-
+        public static CashBookRegisterDatabase database;
+        CashBookRegisterDatabase cashBookRegisterDatabase = new CashBookRegisterDatabase();
         public CashBookRegisterStore()
         {
-            //cashBookRegisters = new List<CashBookRegister>();
-
-            cashBookRegisters = new List<CashBookRegister>()
-            {
-                new CashBookRegister { Id = Guid.NewGuid().ToString(),TransactionDate=DateTime.Now, Description="This is an CashBookRegister description." ,CRAmount=500},
-                new CashBookRegister { Id = Guid.NewGuid().ToString(), TransactionDate=DateTime.Now,Description = "Second CashBookRegister" ,DRAmount=200 },
-                new CashBookRegister { Id = Guid.NewGuid().ToString(),  TransactionDate=DateTime.Now,Description="This is an CashBookRegister description.",CRAmount=300 },
-                new CashBookRegister { Id = Guid.NewGuid().ToString(), TransactionDate=DateTime.Now, Description="This is an CashBookRegister description." ,DRAmount=150}
-            };
+          
         }
 
         public async Task<bool> AddItemAsync(CashBookRegister item)
         {
-            cashBookRegisters.Add(item);
-
+            database= await CashBookRegisterDatabase.Instance;
+            await database.SaveItemAsync(item,true);        
             return await Task.FromResult(true);
         }
 
         public async Task<bool> UpdateItemAsync(CashBookRegister item)
         {
-            var oldItem = cashBookRegisters.Where((CashBookRegister arg) => arg.Id == item.Id).FirstOrDefault();
-            cashBookRegisters.Remove(oldItem);
-            cashBookRegisters.Add(item);
-
+            database = await CashBookRegisterDatabase.Instance;        
+            await database.SaveItemAsync(item, false);
             return await Task.FromResult(true);
         }
 
         public async Task<bool> DeleteItemAsync(string id)
         {
-            var oldItem = cashBookRegisters.Where((CashBookRegister arg) => arg.Id == id).FirstOrDefault();
-            cashBookRegisters.Remove(oldItem);
-
+            database = await CashBookRegisterDatabase.Instance;
+            await database.DeleteItemAsync(await GetItemAsync(id));
             return await Task.FromResult(true);
         }
 
         public async Task<CashBookRegister> GetItemAsync(string id)
         {
-            return await Task.FromResult(cashBookRegisters.FirstOrDefault(s => s.Id == id));
+            database = await CashBookRegisterDatabase.Instance;
+            return await database.GetItemAsync(id);
         }
 
         public async Task<IEnumerable<CashBookRegister>> GetItemsAsync(bool forceRefresh = false)
         {
-            return await Task.FromResult(cashBookRegisters);
+            database = await CashBookRegisterDatabase.Instance;
+            return await  database.GetItemsAsync();           
         }
     }
 }
