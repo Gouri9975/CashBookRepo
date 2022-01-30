@@ -9,14 +9,14 @@ using Xamarin.Forms;
 namespace CashBook.ViewModels
 {
     [QueryProperty(nameof(CashRegisterId), nameof(CashRegisterId))]
-    public class NewCashBookRegisterViewModel : BaseViewModel
+    public class CashBookRegisterViewModel : BaseViewModel
     {
         private string text;
         private string description;
         public IDataStore<CashBookRegister> DataStore => DependencyService.Get<IDataStore<CashBookRegister>>();
 
         private string Type;
-        public NewCashBookRegisterViewModel(string type)
+        public CashBookRegisterViewModel(string type)
         {
             Type = type;
             SaveCommand = new Command(OnSave, ValidateSave);

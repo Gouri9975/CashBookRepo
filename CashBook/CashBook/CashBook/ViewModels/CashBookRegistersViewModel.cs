@@ -87,12 +87,12 @@ namespace CashBook.ViewModels
 
         private async void OnDepositeCashBookRegisterCommand(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewCashRegisterPage));
+            await Shell.Current.GoToAsync(nameof(CashRegisterPage));
 
         }
         private async void OnWithdrawCashBookRegisterCommand(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewCashWithdrawRegisterPage));
+            await Shell.Current.GoToAsync(nameof(CashWithdrawRegisterPage));
         }
        
         async void OnCashBookRegisterSelected(CashBookRegister CashBookRegister)
@@ -101,12 +101,12 @@ namespace CashBook.ViewModels
                 return;
             if(CashBookRegister.CRAmount>0)
             {
-                  await Shell.Current.GoToAsync($"{nameof(NewCashRegisterPage)}?{nameof(NewCashBookRegisterViewModel.CashRegisterId)}={CashBookRegister.Id}");
+                  await Shell.Current.GoToAsync($"{nameof(CashRegisterPage)}?{nameof(CashBookRegisterViewModel.CashRegisterId)}={CashBookRegister.Id}");
 
             }
             else
             {
-                await Shell.Current.GoToAsync($"{nameof(NewCashWithdrawRegisterPage)}?{nameof(NewCashBookRegisterViewModel.CashRegisterId)}={CashBookRegister.Id}");
+                await Shell.Current.GoToAsync($"{nameof(CashWithdrawRegisterPage)}?{nameof(CashBookRegisterViewModel.CashRegisterId)}={CashBookRegister.Id}");
 
             }
         

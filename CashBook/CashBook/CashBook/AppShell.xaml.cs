@@ -11,8 +11,8 @@ namespace CashBook
         public AppShell()
         {
             InitializeComponent();           
-            Routing.RegisterRoute(nameof(NewCashRegisterPage), typeof(NewCashRegisterPage));
-            Routing.RegisterRoute(nameof(NewCashWithdrawRegisterPage), typeof(NewCashWithdrawRegisterPage));
+            Routing.RegisterRoute(nameof(CashRegisterPage), typeof(CashRegisterPage));
+            Routing.RegisterRoute(nameof(CashWithdrawRegisterPage), typeof(CashWithdrawRegisterPage));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)

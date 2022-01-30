@@ -8,14 +8,14 @@ using Xamarin.Forms.Xaml;
 
 namespace CashBook.Views
 {
-    public partial class NewCashWithdrawRegisterPage : ContentPage
+    public partial class CashWithdrawRegisterPage : ContentPage
     {
         public Item Item { get; set; }
 
-        public NewCashWithdrawRegisterPage()
+        public CashWithdrawRegisterPage()
         {
             InitializeComponent();
-            BindingContext = new NewCashBookRegisterViewModel("DR");
+            BindingContext = new CashBookRegisterViewModel("DR");
         }
     }
 }

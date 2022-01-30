@@ -14,11 +14,11 @@
     <Compile Update="Views\CashBookRegisterListPage.xaml.cs">
       <DependentUpon>CashBookRegisterListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\NewCashWithdrawRegisterPage.xaml.cs">
-      <DependentUpon>NewCashWithdrawRegisterPage.xaml</DependentUpon>
+    <Compile Update="Views\CashWithdrawRegisterPage.xaml.cs">
+      <DependentUpon>CashWithdrawRegisterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\NewCashRegisterPage.xaml.cs">
-      <DependentUpon>NewCashRegisterPage.xaml</DependentUpon>
+    <Compile Update="Views\CashRegisterPage.xaml.cs">
+      <DependentUpon>CashRegisterPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
